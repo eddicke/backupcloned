@@ -144,89 +144,59 @@ b.setEnabled(false)
 		 
         }
         if(move){
-      // balls[id].locallyTranslate(new BABYLON.Vector3(0, 0, speed))
          socket.emit("newplayer", {id: id, pos: balls[id].getAbsolutePosition(), speed: speed})
     }
 
     })
-        socket.emit("newplayer", {id: id, pos: balls[id].getAbsolutePosition()})
+      socket.emit("newplayer", {id: id, pos: balls[id].getAbsolutePosition()})
       balls[id].setEnabled(true);
    
     
        
 
      
-      
+      /////////////////////////////////////////EMITS NEW PLAYER//////////**********************////////////////////////////////
       if(usrs == 2){
-          
-		
-	
-       // console.log("there was an old user online")
-        socket.emit("control", {id: id, pos: balls[id].getAbsolutePosition()})
+         socket.emit("control", {id: id, pos: balls[id].getAbsolutePosition()})
         
         socket.emit("player", {id: id, pos: balls[id].getAbsolutePosition()})
       
-         socket.emit("posdata", balls[id].getAbsolutePosition())
-       
-        
         socket.emit("ademola", document.getElementById('chatContent').innerHTML)
-        socket.emit("broadcast", "there was an old user online")
-        
-
         
   }
       })
     })
-
-    /* if(id == id){
-	     camera.lockedTarget = balls[id]
-     }*/
-		
-          
+ 
            console.log("this is your workplace "+id)  
 
+	/************************************************************************************************************************\	
+		
+		/////////////////////////////////////////THE PLAYER MOVEMENT//////////**********************////////////////////////////////
 scene.registerBeforeRender(function(){
   if(id == id){
-	  balls[id].rotation.y = -4.69 - camera.alpha;	
-	  camera.target.x = parseFloat(balls[id].position.x);		
-	  camera.target.z = parseFloat(balls[id].position.z);
+balls[id].rotation.y = -4.69 - camera.alpha;	
+camera.target.x = parseFloat(balls[id].position.x);		
+camera.target.z = parseFloat(balls[id].position.z);
   }
 })
           
      
           
-            socket.on('newplayer', function(posx){
+ socket.on('newplayer', function(posx){
+if(move){
+balls[posx.id].locallyTranslate(new BABYLON.Vector3(0, 0, speed))
+}
+});
+          /************************************************************************************************************************\\
           
- //balls[posx.id].position.copyFrom(posx.pos);
-	
-     // balls[posx.id].position = posx.pos
-		   if(move){
-       balls[posx.id].locallyTranslate(new BABYLON.Vector3(0, 0, speed))
-		   }
-  });
-          
-          socket.on("player", function(spawn){
-     
-       socket.on('control', function(player){
- 	//balls[player].position.set(spawn.pos);
-  
-})
-   
-     })
-          
-              ///////////////////////////************************************************
-          var pos = []
+              //////////////UPDATE POSITION AS SOON AS NEW PLAYER LOGS ON/////////////************************************************\\
+var pos = []
 socket.on('control', function(player){
-  balls[player.id].setEnabled(true);
+balls[player.id].setEnabled(true);
 balls[player.id].position.copyFrom(player.pos)
-
-  //console.log(player.id+" is already online set at position")
- // pos.push(player.pos)
-  
-  
 })
           
-  //*****************************************************************************************************
+  //*****************************************************************************************************\\
    socket.on("ademola", function(gme){
   document.getElementById('chatContent').innerHTML = gme;
      })
