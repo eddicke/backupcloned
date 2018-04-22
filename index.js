@@ -31,6 +31,9 @@ io.on('connection', function(socket) {
     io.emit('ademola', gme);
   });
   
+   socket.on('rotation', function(rot){
+    io.emit('rotation', rot);
+  });
    socket.on('newplayer', function(posx){
     io.emit('newplayer', posx);
   });
